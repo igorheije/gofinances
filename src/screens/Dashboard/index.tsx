@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '../../Components/Card';
 import { CardListing } from '../../Components/CardListing';
-
+import { Ionicons } from '@expo/vector-icons';
 import {
   Container,
   Header,
@@ -29,14 +29,21 @@ export function Dashboard() {
             />
             <User>
               <UserGreeting>Olá,</UserGreeting>
-              <UserName>Igor</UserName>
+              <UserName>Igor Heije</UserName>
             </User>
           </UserInfo>
+          <Ionicons name="ios-power" size={32} color="orange" />
         </UserWrapper>
         <Cards horizontal showsHorizontalScrollIndicator={false}>
           <Card title="Entradas" cash="R$ 17.400,00" icon="up" />
           <Card title="Saídas" cash="R$ 17.400,00" icon="down" />
-          <Card title="Total" cash="R$ 17.400,00" icon="cash" bg="secondary" />
+          <Card
+            title="Total"
+            cash="R$ 17.400,00"
+            icon="cash"
+            bg="secondary"
+            color="shape"
+          />
         </Cards>
       </Header>
       <Listing>

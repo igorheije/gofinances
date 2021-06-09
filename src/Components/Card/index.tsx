@@ -13,14 +13,21 @@ interface CardProps {
   title: string;
   cash: string;
   icon: 'up' | 'down' | 'cash';
-  bg?: 'default' | 'secondary';
+  bg?: null | 'secondary';
+  color?: 'title' | 'shape';
 }
 
-export const Card = ({ title, cash, icon, bg = 'default' }: CardProps) => {
+export const Card = ({
+  title,
+  cash,
+  icon,
+  bg = null,
+  color = 'title',
+}: CardProps) => {
   return (
     <Container bg={bg}>
       <HeaderCard>
-        <Title>{title}</Title>
+        <Title color={color}>{title}</Title>
         {icon === 'up' && (
           <Ionicons name="arrow-up-circle-outline" size={40} color="green" />
         )}
@@ -32,8 +39,8 @@ export const Card = ({ title, cash, icon, bg = 'default' }: CardProps) => {
         )}
       </HeaderCard>
       <FooterCard>
-        <Cash>{cash}</Cash>
-        <DetailsCash>Ùltima entrada dia 13 de abril</DetailsCash>
+        <Cash color={color}>{cash}</Cash>
+        <DetailsCash color={color}>Ùltima entrada dia 13 de abril</DetailsCash>
       </FooterCard>
     </Container>
   );

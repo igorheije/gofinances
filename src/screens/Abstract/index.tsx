@@ -1,11 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
 import Head from '../../Components/Head';
+import { CardCategory } from '../../Components/CardCategory';
+import { Wrapper, Container } from './styles';
 
 export const Abstract = () => {
   return (
-    <View>
+    <Wrapper>
       <Head title="Resumo" />
-    </View>
+      <Container>
+        <CardCategory color="primary" title="Casa" price="R$ 700,00" />
+        <CardCategory color="secondary" title="Casa" price="R$ 700,00" />
+        <CardCategory color="success" title="Casa" price="R$ 700,00" />
+        <CardCategory color="attention" title="Casa" price="R$ 700,00" />
+        <CardCategory color="primary" title="Casa" price="R$ 700,00" />
+      </Container>
+    </Wrapper>
   );
 };
