@@ -13,8 +13,14 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(16)}px;
 `;
-export const Cash = styled.Text`
-  color: ${({ theme }) => theme.colors.success};
+
+interface IncomeProps {
+  income: boolean;
+}
+
+export const Cash = styled.Text<IncomeProps>`
+  color: ${({ theme, income }) =>
+    income ? theme.colors.attention : theme.colors.success};
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(24)}px;
 `;

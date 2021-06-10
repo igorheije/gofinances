@@ -48,9 +48,27 @@ export function Dashboard() {
       </Header>
       <Listing>
         <TitleList>Listagem</TitleList>
-        <CardListing />
-        <CardListing />
-        <CardListing />
+        <CardListing
+          income={true}
+          title="Desenvolvimento de site"
+          cash="R$ 10.400,00"
+          typeIncome="Casa"
+          dateIncome="12/12/2021"
+        />
+        <CardListing
+          income={false}
+          title="Desenvolvimento de site"
+          cash="R$ 10.400,00"
+          typeIncome="Casa"
+          dateIncome="12/12/2021"
+        />
+        <CardListing
+          income={false}
+          title="Desenvolvimento de site"
+          cash="R$ 10.400,00"
+          typeIncome="Casa"
+          dateIncome="12/12/2021"
+        />
       </Listing>
     </Container>
   );

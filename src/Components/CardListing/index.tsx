@@ -2,14 +2,28 @@ import React from 'react';
 
 import { Container, Title, Cash, Footer, TypeCash, DateCash } from './styles';
 
-export const CardListing = () => {
+interface CardListingProps {
+  title: string;
+  income: boolean;
+  cash: string;
+  typeIncome: string;
+  dateIncome: string;
+}
+
+export const CardListing = ({
+  title,
+  income,
+  cash,
+  typeIncome,
+  dateIncome,
+}: CardListingProps) => {
   return (
     <Container>
-      <Title>Desenvolvimento de site</Title>
-      <Cash>R$ 12.000,00</Cash>
+      <Title>{title}</Title>
+      <Cash income={income}>{income ? `- ${cash}` : cash}</Cash>
       <Footer>
-        <TypeCash>Vendas</TypeCash>
-        <DateCash>13/04/2020</DateCash>
+        <TypeCash>{typeIncome}</TypeCash>
+        <DateCash>{dateIncome}</DateCash>
       </Footer>
     </Container>
   );
