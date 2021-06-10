@@ -17,7 +17,7 @@ export const Container = styled.View<BgProps>`
   padding: 20px 20px 25px 20px;
 
   justify-content: space-between;
-  margin: 20px 0 0px 30px;
+  margin-right: 14px;
 `;
 
 export const HeaderCard = styled.View`

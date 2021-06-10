@@ -34,7 +34,11 @@ export function Dashboard() {
           </UserInfo>
           <Ionicons name="ios-power" size={32} color="orange" />
         </UserWrapper>
-        <Cards horizontal showsHorizontalScrollIndicator={false}>
+        <Cards
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 24 }}
+        >
           <Card title="Entradas" cash="R$ 17.400,00" icon="up" />
           <Card title="Saídas" cash="R$ 17.400,00" icon="down" />
           <Card
