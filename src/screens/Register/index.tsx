@@ -65,7 +65,6 @@ export const Register = () => {
   }
   function handleOpenModal() {
     setOpenModal(true);
-    console.log(formatReal(getValues().amount));
   }
   function handleCloseModal() {
     setOpenModal(false);

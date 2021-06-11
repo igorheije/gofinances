@@ -20,10 +20,12 @@ import { useTransactions } from '../../context/TransectionsContext';
 import { useNavigation } from '@react-navigation/core';
 
 export function Dashboard() {
-  const { transactions } = useTransactions();
+  const { transactions, loadingTransactions } = useTransactions();
   const navigation = useNavigation();
 
-  useEffect(() => {}, [navigation]);
+  useEffect(() => {
+    loadingTransactions();
+  }, [navigation]);
 
   return (
     <Container>
