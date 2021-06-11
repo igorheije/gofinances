@@ -9,6 +9,8 @@ import { Container, Content, Category, Icon, Title, Footer } from './styles';
 export interface Category {
   key: string;
   name: string;
+  icon: string;
+  color: string;
 }
 
 export interface Props {

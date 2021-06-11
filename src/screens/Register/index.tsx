@@ -5,7 +5,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
-  AsyncStorage,
 } from 'react-native';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,6 +26,8 @@ import {
   Footer,
 } from './styles';
 import { useNavigation } from '@react-navigation/core';
+import { useTransactions } from '../../context/TransectionsContext';
+import { formatReal } from '../../utils/formatReal';
 
 interface FormData {
   name: string;
@@ -34,33 +35,37 @@ interface FormData {
 }
 const schema = yup.object().shape({
   name: yup.string().required('Informe um nome!'),
-  amount: yup.number().positive().required('Informe um Valor!'),
+  amount: yup.string().required('Informe um Valor!'),
 });
 const defaultCategory = {
   key: 'category',
   name: 'Categorias',
+  icon: '',
+  color: '',
 };
 
 export const Register = () => {
-  const [transactionType, setTransactionType] = useState('');
+  const [transactionType, setTransactionType] = useState<'up' | 'down' | ''>();
   const [openModal, setOpenModal] = useState(false);
   const [category, setCategory] = useState<Category>(defaultCategory);
   const {
     control,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const dataKey = '@gofinances:transactions';
   const navigation = useNavigation();
+  const { saveTransactions } = useTransactions();
 
   function handleTransactionsTypeSelect(type: 'up' | 'down') {
     setTransactionType(type);
   }
   function handleOpenModal() {
     setOpenModal(true);
+    console.log(formatReal(getValues().amount));
   }
   function handleCloseModal() {
     setOpenModal(false);
@@ -70,28 +75,23 @@ export const Register = () => {
     if (category.key === 'category')
       return Alert.alert('Selecione uma categoria');
 
-    try {
-      const newTransection = {
-        id: String(uuid.v4()),
-        name: form.name,
-        amount: form.amount,
-        category: category.key,
-        transactionType,
-        date: new Date(),
-      };
+    const newTransection = {
+      id: String(uuid.v4()),
+      name: form.name,
+      amount: formatReal(form.amount),
+      category,
+      transactionType,
+      date: new Date(),
+    };
 
-      const data = await AsyncStorage.getItem(dataKey);
-      const currentData = data ? JSON.parse(data) : [];
-      const dataFormated = [...currentData, newTransection];
-      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
-
+    const res = await saveTransactions(newTransection);
+    if (res) {
       setTransactionType('');
       setCategory(defaultCategory);
       reset();
       navigation.navigate('Listagem');
-    } catch (err) {
-      console.log(err);
-      Alert.alert('Não foi possivel salvar');
+    } else {
+      Alert.alert('Não foi possível salvar');
     }
   }
 
@@ -115,6 +115,7 @@ export const Register = () => {
                 name="amount"
                 placeholder="Preço"
                 keyboardType="numeric"
+                price
                 error={errors.amount && errors.amount.message}
               />
             </Inputgroup>

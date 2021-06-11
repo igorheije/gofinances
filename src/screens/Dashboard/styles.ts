@@ -59,7 +59,7 @@ export const Cards = styled.ScrollView`
 
 export const Listing = styled.ScrollView`
   padding: 20px;
-  margin-top: 15px;
+  margin: 15px 0;
 `;
 
 export const TitleList = styled.Text`

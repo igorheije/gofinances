@@ -10,6 +10,7 @@ import {
 
 import theme from './src/global/styles/theme';
 import Routes from './src/routes';
+import { TransectionsProvider } from './src/context/TransectionsContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,8 +21,10 @@ export default function App() {
 
   if (!fontsLoaded) return <AppLoading />;
   return (
-    <ThemeProvider theme={theme}>
-      <Routes />
-    </ThemeProvider>
+    <TransectionsProvider>
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
+    </TransectionsProvider>
   );
 }

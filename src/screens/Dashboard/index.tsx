@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { Card } from '../../Components/Card';
 import { CardListing } from '../../Components/CardListing';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,8 +16,15 @@ import {
   TitleList,
   Listing,
 } from './styles';
+import { useTransactions } from '../../context/TransectionsContext';
+import { useNavigation } from '@react-navigation/core';
 
 export function Dashboard() {
+  const { transactions } = useTransactions();
+  const navigation = useNavigation();
+
+  useEffect(() => {}, [navigation]);
+
   return (
     <Container>
       <Header>
@@ -52,27 +60,19 @@ export function Dashboard() {
       </Header>
       <Listing>
         <TitleList>Listagem</TitleList>
-        <CardListing
-          income={true}
-          title="Desenvolvimento de site"
-          cash="R$ 10.400,00"
-          typeIncome="Casa"
-          dateIncome="12/12/2021"
-        />
-        <CardListing
-          income={false}
-          title="Desenvolvimento de site"
-          cash="R$ 10.400,00"
-          typeIncome="Casa"
-          dateIncome="12/12/2021"
-        />
-        <CardListing
-          income={false}
-          title="Desenvolvimento de site"
-          cash="R$ 10.400,00"
-          typeIncome="Casa"
-          dateIncome="12/12/2021"
-        />
+        <View>
+          {transactions?.map((item) => (
+            <CardListing
+              key={item.id}
+              icon={item.category.icon}
+              income={item.transactionType}
+              title={item.name}
+              cash={String(item.amount)}
+              typeIncome={item.category.name}
+              dateIncome={`${item.date}`}
+            />
+          ))}
+        </View>
       </Listing>
     </Container>
   );

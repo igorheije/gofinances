@@ -1,5 +1,6 @@
+import { Feather } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
   width: 100%;
@@ -15,12 +16,20 @@ export const Title = styled.Text`
 `;
 
 interface IncomeProps {
-  income: boolean;
+  income: 'up' | 'down';
 }
 
 export const Cash = styled.Text<IncomeProps>`
-  color: ${({ theme, income }) =>
-    income ? theme.colors.attention : theme.colors.success};
+  ${({ income }) =>
+    income === 'up' &&
+    css`
+      color: ${({ theme }) => theme.colors.success};
+    `}
+  ${({ income }) =>
+    income === 'down' &&
+    css`
+      color: ${({ theme }) => theme.colors.attention};
+    `}
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(24)}px;
 `;
@@ -38,4 +47,16 @@ export const DateCash = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
+`;
+
+export const Icon = styled(Feather)`
+  margin-right: 15px;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const FooterType = styled.View`
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
 `;

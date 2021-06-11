@@ -1,13 +1,23 @@
 import React from 'react';
 
-import { Container, Title, Cash, Footer, TypeCash, DateCash } from './styles';
+import {
+  Container,
+  Title,
+  Cash,
+  Footer,
+  TypeCash,
+  DateCash,
+  FooterType,
+  Icon,
+} from './styles';
 
 interface CardListingProps {
   title: string;
-  income: boolean;
+  income: 'up' | 'down';
   cash: string;
   typeIncome: string;
   dateIncome: string;
+  icon: string;
 }
 
 export const CardListing = ({
@@ -16,13 +26,19 @@ export const CardListing = ({
   cash,
   typeIncome,
   dateIncome,
+  icon,
 }: CardListingProps) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <Cash income={income}>{income ? `- ${cash}` : cash}</Cash>
+      <Cash income={income}>{`${
+        income === 'down' ? '-' : ''
+      } R$ ${cash}`}</Cash>
       <Footer>
-        <TypeCash>{typeIncome}</TypeCash>
+        <FooterType>
+          <Icon name={icon} size={20} />
+          <TypeCash>{typeIncome}</TypeCash>
+        </FooterType>
         <DateCash>{dateIncome}</DateCash>
       </Footer>
     </Container>
